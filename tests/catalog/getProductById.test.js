@@ -1,14 +1,49 @@
-const products = require('../../src/data/products');
 const { getProductById } = require('../../src/catalog');
+const products = require('../../src/data/products');
 
 describe('getProductById', () => {
-  test.todo('ID 1 возвращает products[0]');
-  test.todo('ID 4 возвращает products[3]');
-  test.todo('ID 6 возвращает products[5]');
-  test.todo('ID 0 возвращает null');
-  test.todo('ID 999 возвращает null');
-  test.todo('ID -1 возвращает null');
-  test.todo("строковый ID '1' возвращает null");
-  test.todo('ID undefined возвращает null');
-  test.todo('ID NaN возвращает null');
+  test('Товар существует: ID 1', () => {
+    const result = getProductById(products, 1);
+    expect(result).toEqual(products[0]);
+  });
+
+  test('Товар существует: ID 4', () => {
+    const result = getProductById(products, 4);
+    expect(result).toEqual(products[3]);
+  });
+
+  test('Товар существует: ID 6', () => {
+    const result = getProductById(products, 6);
+    expect(result).toEqual(products[5]);
+  });
+
+  test('Числовой ID отсутствует: ID 0', () => {
+    const result = getProductById(products, 0);
+    expect(result).toBeNull();
+  });
+
+  test('Числовой ID отсутствует: ID 999', () => {
+    const result = getProductById(products, 999);
+    expect(result).toBeNull();
+  });
+
+  test('Числовой ID отсутствует: ID -1', () => {
+    const result = getProductById(products, -1);
+    expect(result).toBeNull();
+  });
+
+  test('ID неверного типа: ID "1"', () => {
+    const result = getProductById(products, '1');
+    expect(result).toBeNull();
+  });
+
+  test('ID неверного типа: ID undefined', () => {
+    const result = getProductById(products, undefined);
+    expect(result).toBeNull();
+  });
+
+  test('ID неверного типа: ID NaN', () => {
+    const result = getProductById(products, NaN);
+    expect(result).toBeNull();
+  });
 });
